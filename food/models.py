@@ -1,5 +1,6 @@
 from django.db import models
 
+from codingTeam.managers import FoodPublishedOnlyManager
 from food.utils.models import TimeStampedModel
 
 
@@ -41,6 +42,7 @@ class Food(TimeStampedModel):
 
     additional = models.ManyToManyField('self', verbose_name='Дополнительные товары', symmetrical=False,
                                         related_name='additional_from', blank=True)
+    publish_only = FoodPublishedOnlyManager()
 
     def __str__(self):
         return self.name_ru
