@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework.viewsets import ModelViewSet
 
 from food.models import Food, FoodCategory
@@ -11,6 +12,8 @@ class FoodViewSet(ModelViewSet):
 
 
 class FoodCategoryViewSet(ModelViewSet):
-    queryset = FoodCategory.objects.prefetch_related('food', 'food__additional').filter(
-        food__is_publish=True).distinct()
+    queryset = FoodCategory.objects.prefetch_related(
+        Prefetch('food', queryset=Food.publish_only.all()),
+        Prefetch('food__additional')) \
+        .filter(food__is_publish=True).distinct()
     serializer_class = FoodCategorySerializer
