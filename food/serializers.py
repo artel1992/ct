@@ -13,7 +13,7 @@ class FoodSerializer(serializers.ModelSerializer):
 
 
 class FoodCategorySerializer(serializers.ModelSerializer):
-    foods = FoodSerializer(source='food', many=True, read_only=True)
+    foods = FoodSerializer(source='food_published', many=True, read_only=True)
 
     class Meta:
         model = FoodCategory

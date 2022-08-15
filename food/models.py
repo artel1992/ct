@@ -20,6 +20,10 @@ class FoodCategory(TimeStampedModel):
         verbose_name_plural = 'Разделы меню'
         ordering = ('name_ru', 'order_id')
 
+    @property
+    def food_published(self):
+        return self.food.filter(is_publish=True)
+
 
 class Food(TimeStampedModel):
     category = models.ForeignKey(FoodCategory, verbose_name='Раздел меню',
